@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:latian2/beranda.dart';
-import 'signup.dart';
 
-class LoginPageState extends StatefulWidget {
+class SignupScreen extends StatefulWidget {
   @override
-  State<LoginPageState> createState() => _LoginPageState();
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+class Stateful {
 }
 
-class _LoginPageState extends State<LoginPageState> {
- final TextEditingController _emailController = TextEditingController();
- final TextEditingController _passwordController = TextEditingController();
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phonenumberController = TextEditingController();
 
-  void _tampil(){
-    String email=_emailController.text;
-    String pass=_passwordController.text;
-
+  void  _tampil(){
+    String Name= _nameController.text;
+    String Email= _emailController.text;
+    String Password= _passwordController.text;
+    String PhoneNumber= _phonenumberController.text;
+    
     showDialog(context: context, builder: (context){
       return AlertDialog(
         title: Text("Data Akun"),
-        content: Text("Email: $email, password: $pass")
+        content: Text(
+        "Name: $Name, Email: $Email, Password: $Password, PhoneNumber: $PhoneNumber" 
+        ),
       );
     });
+
   }
-
-
-  @override
+  @override 
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange,
@@ -35,7 +40,7 @@ class _LoginPageState extends State<LoginPageState> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                ' ',
+                'Aneka Sport',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -53,10 +58,18 @@ class _LoginPageState extends State<LoginPageState> {
                   child: Column(
                     children: [
                       Text(
-                        'Login',
+                        'Signup',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          prefixIcon: Icon(Icons.person),  // Ikon untuk nama
                         ),
                       ),
                       SizedBox(height: 10),
@@ -72,51 +85,59 @@ class _LoginPageState extends State<LoginPageState> {
                         controller: _passwordController,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock),   // Ikon untuk password
+                          prefixIcon: Icon(Icons.lock),  // Ikon untuk password
                         ),
                         obscureText: true,
                       ),
                       SizedBox(height: 10),
-                      Text(
-                        'Forget password?',
-                        style: TextStyle(color: Colors.grey),
+                      TextField(
+                        controller: _phonenumberController,
+                        decoration: InputDecoration(
+                          labelText: 'Phone Number',
+                          prefixIcon: Icon(Icons.phone),  // Ikon untuk phone number
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Checkbox(value: true, onChanged: (value) {}),
+                          Text.rich(
+                            TextSpan(
+                              text: 'I agree the ',
+                              children: [
+                                TextSpan(
+                                  text: 'Terms Conditions',
+                                  style: TextStyle(color: Colors.orange),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                            // _tampil();
-                           Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                        );
+                          _tampil();
                         },
-                        
-                          // _tampil();
-                      
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orange,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: Text('Login'),
+                        child: Text('Sing up'),
                       ),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don't have an account?"),
+                          Text('Sudah punya akun?'),
                           TextButton(
                             onPressed: () {
-                              
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>  SignupScreen()),
-                              );  
+                              Navigator.pop(context);
                             },
                             child: Text(
-                              'Sign up',
+                              'Login',
                               style: TextStyle(color: Colors.orange),
                             ),
                           ),
